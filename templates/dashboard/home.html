@@ -1,0 +1,55 @@
+{# templates/dashboard/home.html #}
+{% extends "base.html" %}
+{% load static humanize %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<form method="get" class="row gy-2 gx-2 align-items-end mb-4">
+  <div class="col-auto">{{ filter_form.year }}</div>
+  <div class="col-auto"><button class="btn btn-primary">Filter</button></div>
+</form>
+
+<div class="row g-3 mb-4">
+  <div class="col-md d-flex">
+    <div class="erp-card w-100 text-center">
+      <small>Mahsulotlar</small>
+      <h2>{{ product_cnt|intcomma }}</h2>
+    </div>
+  </div>
+  <div class="col-md d-flex">
+    <div class="erp-card w-100 text-center">
+      <small>Zaxira (dona)</small>
+      <h2>{{ stock|intcomma }}</h2>
+    </div>
+  </div>
+  <div class="col-md d-flex">
+    <div class="erp-card w-100 text-center">
+      <small>{{ year }} yillik sotuv (so‘m)</small>
+      <h2>{{ year_total_sales|intcomma }}</h2>
+    </div>
+  </div>
+</div>
+
+<h5 class="mb-2">{{ year }} yil – kategoriya bo‘yicha sotuv</h5>
+<canvas id="pieChart" height="110"></canvas>
+
+<h5 class="mt-5 mb-2">{{ year }} yil oyma-oy</h5>
+<canvas id="barLineChart" height="120"></canvas>
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'js/charts/dashboard.js' %}" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      renderPie({{ pie_labels|safe }}, {{ pie_data|safe }});
+      renderBarLine(
+        {{ months|safe }},
+        {{ bar_rev|safe }},
+        {{ bar_cost|safe }},
+        {{ line_profit|safe }}
+      );
+    });
+  </script>
+{% endblock %}

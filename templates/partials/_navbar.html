@@ -1,0 +1,76 @@
+{% load static %}
+<nav class="erp-navbar shadow-sm">
+  <div class="container d-flex align-items-center">
+
+    <!-- Chap tomondagi logo -->
+    <a href="{% url 'dashboard_home' %}" class="navbar-brand fw-bolder me-4">ERP</a>
+
+    <!-- ====== MENULAR ====== -->
+    <ul class="nav erp-main-nav">
+      <li class="nav-item"><a class="nav-link" href="{% url 'dashboard_home' %}">Dashboard</a></li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Inventar</a>
+        <ul class="dropdown-menu shadow">
+          <li><a class="dropdown-item" href="{% url 'product_list' %}">Mahsulotlar</a></li>
+          <li><a class="dropdown-item" href="{% url 'inv_category_list' %}">Kategoriyalar</a></li>
+        </ul>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Sotuvlar</a>
+        <ul class="dropdown-menu shadow">
+          <li><a class="dropdown-item" href="{% url 'sale_list' %}">Buyurtmalar</a></li>
+          <li><a class="dropdown-item" href="{% url 'customer_list' %}">Mijozlar</a></li>
+        </ul>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Ta’minot</a>
+        <ul class="dropdown-menu shadow">
+          <li><a class="dropdown-item" href="{% url 'purchase_list' %}">Xaridlar</a></li>
+          <li><a class="dropdown-item" href="{% url 'warehouse_list' %}">Omborxonalar</a></li>
+          <li><a class="dropdown-item" href="{% url 'supplier_list' %}">Yetkazib beruvchilar</a></li>
+        </ul>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Harajatlar</a>
+        <ul class="dropdown-menu shadow">
+          <li><a class="dropdown-item" href="{% url 'expense_list' %}">Harajatlar</a></li>
+          <li><a class="dropdown-item" href="{% url 'exp_cat_list' %}">Harajat kategoriyalari</a></li>
+        </ul>
+      </li>
+
+      {% if user.is_superuser or user.role == "SUPERADMIN" %}
+        <li class="nav-item"><a class="nav-link" href="{% url 'user_list' %}">Foydalanuvchilar</a></li>
+          {% if user.is_superuser %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'admin:index' %}">Admin</a></li>
+          {% endif %}
+      {% endif %}
+    </ul>
+
+    <!-- O‘ng tomondagi profil -->
+    <div class="dropdown ms-auto">
+      {% if user.is_authenticated %}
+        <button class="btn btn-outline-light d-flex align-items-center gap-2 px-3"
+                data-bs-toggle="dropdown">
+          {% if user.avatar %}
+            <img src="{{ user.avatar.url }}" class="rounded-circle" width="32" height="32">
+          {% else %}
+            <img src="{% static 'icons/user.svg' %}" width="32" height="32">
+          {% endif %}
+          <span class="fw-semibold text-dark">{{ user.username }}</span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end shadow">
+          <li>
+            <form method="post" action="{% url 'logout' %}">{% csrf_token %}
+              <button class="dropdown-item text-danger">Chiqish</button>
+            </form>
+          </li>
+        </ul>
+      {% else %}
+        <a class="btn btn-outline-primary px-4" href="{% url 'login' %}">Kirish</a>
+      {% endif %}
+    </div>
+  </div>
+</nav>

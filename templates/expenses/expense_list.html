@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Harajatlar{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h4>Harajatlar</h4>
+  <a href="{% url 'expense_create' %}" class="btn btn-primary">+ Yangi harajat</a>
+</div>
+
+<table class="table table-erp">
+  <thead>
+    <tr>
+      <th>ID</th><th>Sana</th><th>Kategoriya</th>
+      <th>Izoh</th><th>Summa (so‘m)</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for e in object_list %}
+      <tr>
+        <td>{{ e.id }}</td>
+        <td>{{ e.created_at|date:"Y-m-d" }}</td>
+        <td>{{ e.category.name }}</td>
+        <td>{{ e.note|default:"—" }}</td>
+        <td>{{ e.amount|floatformat:0 }}</td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="5" class="text-center">Harajatlar topilmadi</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

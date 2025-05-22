@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  {% if object.pk %}Foydalanuvchini tahrirlash{% else %}Yangi foydalanuvchi{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="erp-card">
+      <h4 class="mb-4 text-center">
+        {% if object.pk %}Tahrirlash{% else %}Yangi foydalanuvchi{% endif %}
+      </h4>
+      <form method="post" enctype="multipart/form-data" class="row g-3">
+        {% csrf_token %}
+
+        <!-- Username -->
+        <div class="col-12">
+          <label class="form-label">Username</label>
+          {{ form.username }}
+        </div>
+
+        <!-- Email -->
+        <div class="col-12">
+          <label class="form-label">Email</label>
+          {{ form.email }}
+        </div>
+
+        <!-- Role -->
+        <div class="col-6">
+          <label class="form-label">Rol</label>
+          {{ form.role }}
+        </div>
+
+        <!-- Phone -->
+        <div class="col-6">
+          <label class="form-label">Telefon</label>
+          {{ form.phone }}
+        </div>
+
+        <!-- Password -->
+        <div class="col-12">
+          <label class="form-label">Parol</label>
+          {{ form.password }}
+        </div>
+
+        <!-- Avatar Preview -->
+        {% if object.pk and object.avatar %}
+          <div class="col-12 text-center">
+            <img src="{{ object.avatar.url }}"
+                 class="rounded-circle mb-2"
+                 width="80" height="80"
+                 style="object-fit:cover;">
+          </div>
+        {% endif %}
+
+        <!-- Avatar Upload -->
+        <div class="col-12">
+          <label class="form-label">Avatar</label>
+          {{ form.avatar }}
+        </div>
+
+        <!-- Buttons -->
+        <div class="col-12 d-flex justify-content-between">
+          <button type="submit" class="btn btn-success">Saqlash</button>
+          <a href="{% url 'user_list' %}" class="btn btn-outline-secondary">Orqaga</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

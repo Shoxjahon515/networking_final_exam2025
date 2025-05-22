@@ -1,0 +1,7 @@
+{% if messages %}
+  <div class="flash-container">
+    {% for m in messages %}
+      <div class="alert alert-info py-2">{{ m }}</div>
+    {% endfor %}
+  </div>
+{% endif %}

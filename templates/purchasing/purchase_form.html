@@ -1,0 +1,58 @@
+{# templates/purchasing/purchase_form.html #}
+{% extends "base.html" %}
+{% load static widget_tweaks %}
+{% block title %}Yangi xarid{% endblock %}
+
+{% block content %}
+<h4 class="mb-4">Yangi xarid buyurtmasi</h4>
+
+<form method="post" novalidate>
+  {% csrf_token %}
+
+  <!-- Shapka -->
+  <div class="row gy-2 gx-3 align-items-end mb-4">
+    <div class="col-lg-4">
+      <label class="form-label fw-semibold">Supplier</label>
+      {{ form.supplier|add_class:"form-select" }}
+    </div>
+    <div class="col-lg-4">
+      <label class="form-label fw-semibold">Warehouse</label>
+      {{ form.warehouse|add_class:"form-select" }}
+    </div>
+    <div class="col-lg">
+      <label class="form-label fw-semibold">Note</label>
+      {{ form.note|add_class:"form-control" }}
+    </div>
+  </div>
+
+  <!-- Qatorlar -->
+  <table class="table table-erp align-middle" id="purchaseLines">
+    <thead>
+      <tr>
+        <th style="width:50%">Mahsulot</th>
+        <th style="width:25%">Miqdor</th>
+        <th style="width:25%">Narx (so‘m)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{ formset.management_form }}
+
+      <!-- Prototip va +/− tugmalar yo‘q -->
+      {% for f in formset %}
+      <tr class="order-line">
+        <td>{{ f.product }}</td>
+        <td>{{ f.quantity }}</td>
+        <td>{{ f.cost }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <button class="btn btn-success w-100">Saqlash</button>
+  <a href="javascript:history.back()" class="btn btn-outline-secondary w-100 mt-2">Ortga</a>
+</form>
+{% endblock %}
+
+{% block extra_js %}
+  <!-- JavaScript kerak emas -->
+{% endblock %}

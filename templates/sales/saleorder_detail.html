@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Sotuv #{{ object.pk }}{% endblock %}
+{% block content %}
+<h4 class="mb-3">Sotuv #{{ object.pk }}</h4>
+
+<ul class="list-group mb-3">
+  <li class="list-group-item d-flex justify-content-between">
+    <span>Mijoz:</span><strong>{{ object.customer.name }}</strong>
+  </li>
+  <li class="list-group-item d-flex justify-content-between">
+    <span>Sana:</span><strong>{{ object.created_at|date:"Y-m-d" }}</strong>
+  </li>
+  <li class="list-group-item d-flex justify-content-between">
+    <span>Jami:</span><strong>{{ object.total|floatformat:0 }} so‘m</strong>
+  </li>
+</ul>
+
+<h5>Buyurtma tarkibi</h5>
+<table class="table table-sm table-erp">
+  <thead><tr><th>Mahsulot</th><th>Miqdori</th><th>Narxi</th><th>Subtotal</th></tr></thead>
+  <tbody>
+  {% for line in object.lines.all %}
+    <tr>
+      <td>{{ line.product.name }}</td>
+      <td>{{ line.quantity }}</td>
+      <td>{{ line.price }}</td>
+      <td>{{ line.subtotal }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+<a href="{% url 'sale_list' %}" class="btn btn-outline-secondary">Orqaga</a>
+{% endblock %}

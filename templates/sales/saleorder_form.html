@@ -1,0 +1,48 @@
+{# templates/sales/saleorder_form.html #}
+{% extends "base.html" %}
+{% load static widget_tweaks %}
+
+{% block title %}Yangi sotuv{% endblock %}
+
+{% block content %}
+<h2 class="h3 mb-4">Yangi sotuv</h2>
+<form method="post" novalidate>
+  {% csrf_token %}
+
+  <!-- FORMNING YUQORI QISMI -->
+  <div class="row gy-2 gx-3 align-items-end mb-4">
+    <div class="col-lg-4">
+      <label class="form-label fw-semibold">Mijoz</label>
+      <div class="d-flex gap-2">
+        {{ form.customer|add_class:"form-select flex-grow-1" }}
+        <a href="{% url 'customer_create' %}" target="_blank"
+           class="btn btn-outline-primary btn-sm px-3 d-flex align-items-center">
+          + Mijoz
+        </a>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <label class="form-label fw-semibold">Mahsulot</label>
+      {{ formset.0.product|add_class:"form-select" }}
+    </div>
+    <div class="col-lg-4">
+      <label class="form-label fw-semibold">Izoh</label>
+      {{ form.note|add_class:"form-control" }}
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-lg-4">
+      <label class="form-label fw-semibold">Miqdor</label>
+      {{ formset.0.quantity|add_class:"form-control" }}
+    </div>
+  </div>
+
+  <button class="btn btn-success w-100">Saqlash</button>
+  <a href="javascript:history.back()" class="btn btn-outline-secondary w-100 mt-2">Ortga</a>
+</form>
+{% endblock %}
+
+{% block extra_js %}
+{# JavaScript KERAK EMAS endi, shunchaki bo'sh qoldiring yoki olib tashlang #}
+{% endblock %}

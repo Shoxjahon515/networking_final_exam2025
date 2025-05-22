@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Kategoriyalar{% endblock %}
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Kategoriyalar</h2>
+    <a href="{% url 'inv_category_create' %}" class="btn btn-primary">+ Yangi kategoriya</a>
+  </div>
+  <table class="table table-erp">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nomi</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for category in object_list %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ category.name }}</td>
+          <td>
+            <a href="{% url 'inv_category_update' category.pk %}" class="btn btn-sm btn-outline-secondary">✏️</a>
+            <a href="{% url 'inv_category_delete' category.pk %}" class="btn btn-sm btn-outline-danger">🗑️</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="3" class="text-center">Hech narsa yo‘q</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Yangi mijoz qo‘shish{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height:70vh;">
+  <div class="bg-white p-5 rounded-4 shadow" style="max-width:420px;width:100%;">
+    <h2 class="mb-4 text-center" style="color:#0d6efd;">Yangi mijoz qo‘shish</h2>
+    <form method="post" autocomplete="off">
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="mb-3">
+          <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}
+            <div class="text-danger small">{{ field.errors|striptags }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+      <div class="d-flex gap-3 mt-4 justify-content-center">
+        <button type="submit" class="btn btn-primary px-4">Saqlash</button>
+        <a href="javascript:history.back()" class="btn btn-secondary px-4">Bekor</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

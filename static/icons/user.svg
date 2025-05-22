@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 64 64" role="img" aria-label="User Icon">
+  <!-- Head -->
+  <circle cx="32" cy="20" r="12" fill="#CCCCCC" />
+  <!-- Shoulders / Torso -->
+  <path d="M16,58 C16,44 48,44 48,58 Z" fill="#CCCCCC" />
+</svg>

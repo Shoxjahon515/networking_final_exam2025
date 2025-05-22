@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block title %}Yangi harajat{% endblock %}
+
+{% block content %}
+<h4 class="mb-4">Yangi harajat</h4>
+
+<form method="post" novalidate style="max-width:650px">
+  {% csrf_token %}
+
+  <div class="row gy-3 gx-3">
+    <div class="col-md-4">
+      <label class="form-label fw-semibold">Kategoriya</label>
+      {{ form.category|add_class:"form-select" }}
+    </div>
+    <div class="col-md-4">
+      <label class="form-label fw-semibold">Summa (so‘m)</label>
+      {{ form.amount|add_class:"form-control" }}
+    </div>
+    <div class="col-md-4">
+      <label class="form-label fw-semibold">Izoh</label>
+      {{ form.note|add_class:"form-control" }}
+    </div>
+  </div>
+
+  <button class="btn btn-success w-100 mt-4">Saqlash</button>
+  <a href="javascript:history.back()" class="btn btn-outline-secondary w-100 mt-2">
+    Ortga
+  </a>
+</form>
+{% endblock %}

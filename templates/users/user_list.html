@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Foydalanuvchilar{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h4>Foydalanuvchilar</h4>
+  <a href="{% url 'user_create' %}" class="btn btn-primary">+ Yangi</a>
+</div>
+
+<table class="table table-sm table-erp">
+  <thead><tr><th>Username</th><th>Email</th><th>Rol</th><th></th></tr></thead>
+  <tbody>
+  {% for u in object_list %}
+    <tr>
+      <td>{{ u.username }}</td><td>{{ u.email }}</td><td>{{ u.role }}</td>
+      <td class="text-end">
+        <a href="{% url 'user_update' u.pk %}" class="btn btn-sm btn-outline-secondary">✏️</a>
+      </td>
+    </tr>
+  {% empty %}
+    <tr><td colspan="4" class="text-center">Maʼlumot yo‘q</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
