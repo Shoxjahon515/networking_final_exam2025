@@ -8,6 +8,7 @@
     <!-- ====== MENULAR ====== -->
     <ul class="nav erp-main-nav">
       <li class="nav-item"><a class="nav-link" href="{% url 'dashboard_home' %}">Dashboard</a></li>
+    {% if user.is_superuser %}
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Inventar</a>
         <ul class="dropdown-menu shadow">
@@ -40,7 +41,7 @@
           <li><a class="dropdown-item" href="{% url 'exp_cat_list' %}">Harajat kategoriyalari</a></li>
         </ul>
       </li>
-
+{% endif %}
       {% if user.is_superuser or user.role == "SUPERADMIN" %}
         <li class="nav-item"><a class="nav-link" href="{% url 'user_list' %}">Foydalanuvchilar</a></li>
           {% if user.is_superuser %}
